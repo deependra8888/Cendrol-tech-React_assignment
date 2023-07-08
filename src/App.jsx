@@ -4,8 +4,6 @@ import { Panel, Modal, Button, Placeholder } from "rsuite";
 
 function App() {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const [categories, setCategories] = useState();
   const [category, setCategory] = useState("");
   const [joke, setJoke] = useState("");
@@ -28,7 +26,7 @@ function App() {
   };
 
   const handlePanelClick = async (category) => {
-    handleOpen();
+    setOpen(true)
     setloading(true);
     let data = await fetchJokes(category);
     let { value } = data;
@@ -63,7 +61,7 @@ function App() {
         {!categories && (
           <ReactLoading type={"bars"} color={"blue"} height={667} width={375} />
         )}
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={() => setOpen(false)}>
           <Modal.Header>
             <Modal.Title>{loading ? '' : category && (category[0]?.toUpperCase() + category.substring(1))}</Modal.Title>
           </Modal.Header>
